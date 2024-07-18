@@ -34,7 +34,7 @@ class _MyCheckboxImageState extends State<MyCheckboxImage> {
             ClipRRect(
               borderRadius: BorderRadius.circular(16.0),
               child: Image.asset(
-                height: MediaQuery.of(context).size.width * 0.55,
+                height: MediaQuery.of(context).size.height * 0.25,
                 widget.imageAsset,
                 fit: BoxFit.cover,
               ),
