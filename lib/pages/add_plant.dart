@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_health_data/services/decision_tree/dart_tree.dart';
 import 'package:plant_health_data/shared/controllers/my_controllers.dart';
 import 'package:plant_health_data/shared/enums/my_enums.dart';
 import 'package:plant_health_data/shared/widgets/my_checkbox_image.dart';
@@ -369,6 +370,31 @@ class _AddPlantPageState extends State<AddPlantPage> {
                       // validation
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
+
+                        List<double> input = PlantNutritionDecisionTree.formatInput(textControllerList, boolControllerList);
+                        List<double> predictionOHEA = PlantNutritionDecisionTree.predictNutrientDeficiency(input);
+                        String predictionStr = PlantNutritionDecisionTree.getClass(predictionOHEA);
+
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  predictionStr,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       }
                     },
                     child: const Text(

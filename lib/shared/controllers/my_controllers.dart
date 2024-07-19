@@ -11,4 +11,8 @@ class BoolEditingController extends ChangeNotifier {
   bool getValue() {
     return value;
   }
+
+  double getDoubleValue() {
+    return value ? 1.0 : 0.0;
+  }
 }

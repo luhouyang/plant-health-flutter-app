@@ -11,7 +11,7 @@ enum PlantCharacteristics {
   leavesVeinChlorosis("leavesVeinChlorosis"),
 
   // dark/pale green
-  deepGreenYoungLeaves(" deepGreenYoungLeaves"),
+  deepGreenYoungLeaves("deepGreenYoungLeaves"),
   deepGreenOldLeaves("deepGreenOldLeaves"),
   paleGreenLeaves("paleGreenLeaves"),
 
