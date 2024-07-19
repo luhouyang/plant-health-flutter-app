@@ -23,7 +23,7 @@ class _MyCheckboxImageState extends State<MyCheckboxImage> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width * 0.65,
         padding: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.green),

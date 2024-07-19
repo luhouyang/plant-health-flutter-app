@@ -93,6 +93,8 @@ class _AddPlantPageState extends State<AddPlantPage> {
       PlantCharacteristics.leavesVeinRedPurple.value: leavesVeinRedPurpleController,
     };
 
+    double height = 0.75;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green[100],
@@ -135,7 +137,7 @@ class _AddPlantPageState extends State<AddPlantPage> {
                   controller: oldLeavesChlorosisController,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * height,
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -191,14 +193,14 @@ class _AddPlantPageState extends State<AddPlantPage> {
                   color: Colors.green[900],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * height,
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: [
                       MyCheckboxImage(
                         text: "Deep Green Young Leaves",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/deepGreenYoungLeaves.webp",
                         controller: deepGreenYoungLeavesController,
                       ),
                       MyCheckboxImage(
@@ -208,7 +210,7 @@ class _AddPlantPageState extends State<AddPlantPage> {
                       ),
                       MyCheckboxImage(
                         text: "Pale Green Leaves",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/paleGreenLeaves.webp",
                         controller: paleGreenLeavesController,
                       ),
                     ],
@@ -226,19 +228,19 @@ class _AddPlantPageState extends State<AddPlantPage> {
                   color: Colors.green[900],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * height,
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: [
                       MyCheckboxImage(
                         text: "Roll Curling Leaves",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/rollCurlingLeaves.jpg",
                         controller: rollCurlingLeavesController,
                       ),
                       MyCheckboxImage(
                         text: "Flaccid Leaves",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/flaccidLeaves.jpg",
                         controller: flaccidLeavesController,
                       ),
                     ],
@@ -256,19 +258,19 @@ class _AddPlantPageState extends State<AddPlantPage> {
                   color: Colors.green[900],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * height,
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: [
                       MyCheckboxImage(
                         text: "Witches' Broom",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/witchesBroom.webp",
                         controller: witchesBroomController,
                       ),
                       MyCheckboxImage(
                         text: "Die-back",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/dieback.jpg",
                         controller: diebackController,
                       ),
                     ],
@@ -286,24 +288,24 @@ class _AddPlantPageState extends State<AddPlantPage> {
                   color: Colors.green[900],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * height,
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: [
                       MyCheckboxImage(
                         text: "Leaves Edges Brown/Ash",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/leavesEdgeBrownAsh.webp",
                         controller: leavesEdgeBrownAshController,
                       ),
                       MyCheckboxImage(
                         text: "Spots Brown/Ash",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/spotsBrownAsh.jpg",
                         controller: spotsBrownAshController,
                       ),
                       MyCheckboxImage(
                         text: "Leaves Tips Brown/Ash",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/leavesTipBrownAsh.jpg",
                         controller: leavesTipBrownAshController,
                       ),
                     ],
@@ -321,29 +323,29 @@ class _AddPlantPageState extends State<AddPlantPage> {
                   color: Colors.green[900],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * height,
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: [
                       MyCheckboxImage(
                         text: "Leaves Edges Red/Purple",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/leavesEdgeRedPurple.jpg",
                         controller: leavesEdgeRedPurpleController,
                       ),
                       MyCheckboxImage(
                         text: "Spots Red/Purple",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/spotsRedPurple.jpg",
                         controller: spotsRedPurpleController,
                       ),
                       MyCheckboxImage(
                         text: "Leaves Tips Red/Purple",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/leavesTipRedPurple.webp",
                         controller: leavesTipRedPurpleController,
                       ),
                       MyCheckboxImage(
                         text: "Leaves Vein Red/Purple",
-                        imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                        imageAsset: "assets/sample_images/leavesVeinRedPurple.jpg",
                         controller: leavesVeinRedPurpleController,
                       ),
                     ],

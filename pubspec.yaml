@@ -47,6 +47,19 @@ flutter:
     - 'assets/sample_images/completeInterveinalChlorosis.jpg'
     - 'assets/sample_images/partialInterveinalChlorosis.jpg'
     - 'assets/sample_images/leavesVeinChlorosis.webp'
+    - 'assets/sample_images/deepGreenYoungLeaves.webp'
+    - 'assets/sample_images/paleGreenLeaves.webp'
+    - 'assets/sample_images/rollCurlingLeaves.jpg'
+    - 'assets/sample_images/flaccidLeaves.jpg'
+    - 'assets/sample_images/witchesBroom.webp'
+    - 'assets/sample_images/dieback.jpg'
+    - 'assets/sample_images/leavesEdgeBrownAsh.webp'
+    - 'assets/sample_images/spotsBrownAsh.jpg'
+    - 'assets/sample_images/leavesTipBrownAsh.jpg'
+    - 'assets/sample_images/leavesEdgeRedPurple.jpg'
+    - 'assets/sample_images/spotsRedPurple.jpg'
+    - 'assets/sample_images/leavesTipRedPurple.webp'
+    - 'assets/sample_images/leavesVeinRedPurple.jpg'
 
   fonts:
     - family: Poppins
