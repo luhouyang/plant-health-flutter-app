@@ -11,10 +11,10 @@ class LoadingTextWidget extends StatefulWidget {
 class LoadingTextWidgetState extends State {
   // set colours
   final List _colors = [
-    const Color.fromARGB(255, 120, 255, 142),
-    const Color.fromARGB(255, 48, 255, 93),
-    const Color.fromARGB(255, 20, 255, 51),
-    const Color.fromARGB(255, 0, 255, 60),
+    Colors.lightGreen,
+    Colors.green[400],
+    Colors.green[700],
+    Colors.green[900],
   ];
 
   // track colour
