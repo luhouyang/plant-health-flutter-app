@@ -1,6 +1,4 @@
 // Flutter imports
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -168,7 +166,6 @@ class LocationService {
         if (plantList.isNotEmpty)
           MarkerLayer(
             markers: plantList.map((plantEntity) {
-              File imageFile = File.fromUri(Uri.parse(plantEntity.photoPath));
               return Marker(
                   point: LatLng(plantEntity.location.latitude, plantEntity.location.longitude),
                   width: 80,
@@ -190,11 +187,11 @@ class LocationService {
                               height: 30,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
-                                child: Image.file(imageFile),
+                                child: Image.memory(plantEntity.imageData),
                               ),
                             ),
                           ),
-                          Positioned(top: 0, child: Text(plantEntity.plantName)),
+                          Positioned(top: 0, child: Text(plantEntity.location.toString())),
                         ],
                       )));
             }).toList(),

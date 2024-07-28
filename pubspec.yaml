@@ -61,6 +61,8 @@ flutter:
     - 'assets/sample_images/leavesTipRedPurple.webp'
     - 'assets/sample_images/leavesVeinRedPurple.jpg'
 
+    - 'assets/plant_health_data.xlsx'
+
   fonts:
     - family: Poppins
       fonts:

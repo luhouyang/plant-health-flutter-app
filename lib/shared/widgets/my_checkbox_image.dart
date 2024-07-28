@@ -31,7 +31,7 @@ class _MyCheckboxImageState extends State<MyCheckboxImage> {
           });
         },
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.65,
+          width: MediaQuery.of(context).size.width * 0.68,
           padding: const EdgeInsets.all(6.0),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.green),
@@ -42,7 +42,7 @@ class _MyCheckboxImageState extends State<MyCheckboxImage> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
                 child: Image.asset(
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  height: MediaQuery.of(context).size.height * 0.23,
                   widget.imageAsset,
                   fit: BoxFit.cover,
                 ),

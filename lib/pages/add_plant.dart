@@ -1,7 +1,19 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:location/location.dart';
+import 'package:plant_health_data/entities/plant_entity.dart';
 import 'package:plant_health_data/services/decision_tree/dart_tree.dart';
+import 'package:plant_health_data/services/excel_sheets/excel_service.dart';
+import 'package:plant_health_data/services/location/location_service.dart';
 import 'package:plant_health_data/shared/controllers/my_controllers.dart';
 import 'package:plant_health_data/shared/enums/my_enums.dart';
+import 'package:plant_health_data/shared/widgets/loading_text.dart';
 import 'package:plant_health_data/shared/widgets/my_checkbox_image.dart';
 import 'package:plant_health_data/shared/widgets/my_h1.dart';
 import 'package:plant_health_data/shared/widgets/my_percentage.dart';
@@ -50,6 +62,233 @@ class _AddPlantPageState extends State<AddPlantPage> {
   BoolEditingController spotsRedPurpleController = BoolEditingController();
   BoolEditingController leavesTipRedPurpleController = BoolEditingController();
   BoolEditingController leavesVeinRedPurpleController = BoolEditingController();
+
+  // image picking and cropping
+  File? picFile;
+  Uint8List? picBytes;
+
+  dynamic pickImageError;
+  String? retrieveDataError;
+
+  final ImagePicker picker = ImagePicker();
+
+  // crop selected image
+  Future cropImage(XFile pickedFile) async {
+    try {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+          sourcePath: pickedFile.path,
+          maxHeight: 1080,
+          maxWidth: 1080,
+          compressFormat: ImageCompressFormat.jpg, // maybe change later, test quality first
+          compressQuality: 30,
+          aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
+
+      picFile = File(croppedFile!.path);
+      picBytes = await picFile!.readAsBytes();
+
+      debugPrint(picFile!.path);
+      debugPrint(picFile!.lengthSync().toString());
+
+      setState(() {});
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  // pick image from gallery
+  Future getImageFromGallery() async {
+    try {
+      final XFile? pickedFile = await picker.pickImage(
+        source: ImageSource.gallery,
+      );
+      if (pickedFile != null) {
+        cropImage(pickedFile);
+      }
+    } catch (e) {
+      setState(() {
+        pickImageError = e;
+      });
+    }
+  }
+
+  // take picture with camera
+  Future getImageFromCamera() async {
+    try {
+      final XFile? pickedFile = await picker.pickImage(
+        source: ImageSource.camera,
+      );
+      if (pickedFile != null) {
+        cropImage(pickedFile);
+      }
+    } catch (e) {
+      setState(() {
+        pickImageError = e;
+      });
+    }
+  }
+
+  // ui component for pick image button
+  Widget pickImageContainer() {
+    return picBytes == null
+        // no image selected view
+        ? Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                height: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.5,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.0), border: Border.all(color: Colors.black)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Text(
+                      'You have not yet picked an image.',
+                      textAlign: TextAlign.center,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: IconButton(
+                                onPressed: () async {
+                                  getImageFromGallery();
+                                },
+                                tooltip: 'Pick Image from gallery or Camera',
+                                icon: const Icon(Icons.photo),
+                              ),
+                            ),
+                            const Text("Gallery"),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: IconButton(
+                                onPressed: () async {
+                                  getImageFromCamera();
+                                },
+                                icon: const Icon(Icons.camera),
+                              ),
+                            ),
+                            const Text("Camera"),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
+        // image selected view
+        : Column(
+            children: [
+              const SizedBox(
+                height: 25,
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8.0),
+                      height: MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.0), border: Border.all(color: Colors.black)),
+                      child: Container(
+                        height: 400,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            15,
+                          ),
+                        ),
+                        child: Image.memory(picBytes!),
+                      ),
+                    ),
+                    Positioned(
+                      top: -11,
+                      left: -11,
+                      child: IconButton(
+                        onPressed: () {
+                          picFile = null;
+                          picBytes = null;
+                          setState(() {});
+                        },
+                        icon: const Icon(
+                          Icons.cancel,
+                          color: Colors.red,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+  }
+
+  // error handling image
+  Widget previewImages() {
+    if (retrieveDataError != null) {
+      //return retrieveError;
+    }
+    if (pickImageError != null) {
+      // Pick imageError;
+    }
+    return pickImageContainer();
+  }
+
+  // incase app crashes, previous image data can be retrieved
+  Future<void> retrieveLostData() async {
+    final LostDataResponse response = await picker.retrieveLostData();
+    if (response.isEmpty) {
+      return;
+    }
+    if (response.file != null) {
+      setState(() {
+        if (response.files == null) {
+        } else {
+          picFile = response.files!.first as File?;
+        }
+      });
+    } else {
+      retrieveDataError = response.exception!.code;
+    }
+  }
+
+  // image picking widget
+  Widget imagePickerWidget() {
+    return !kIsWeb && defaultTargetPlatform == TargetPlatform.android
+        ? FutureBuilder<void>(
+            future: retrieveLostData(),
+            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                  return pickImageContainer();
+                case ConnectionState.done:
+                  return previewImages();
+                case ConnectionState.active:
+                  if (snapshot.hasError) {
+                    return pickImageContainer();
+                  } else {
+                    return pickImageContainer();
+                  }
+                default:
+                  return pickImageContainer();
+              }
+            },
+          )
+        : previewImages();
+  }
+  // end of pictures code
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +354,12 @@ class _AddPlantPageState extends State<AddPlantPage> {
             key: _formKey,
             child: Column(
               children: [
+                const Text(
+                  "Pick an Image",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                imagePickerWidget(),
+
                 // chlorosis section
                 // young leaves %, old leaves %
                 // entire plant, leaf edges, leaf tips, spots
@@ -377,20 +622,89 @@ class _AddPlantPageState extends State<AddPlantPage> {
 
                         showDialog(
                           context: context,
+                          barrierDismissible: false,
                           builder: (context) {
                             return Dialog(
                               alignment: Alignment.center,
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  predictionStr,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text(
+                                      predictionStr,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Container(
+                                    margin: const EdgeInsets.all(16),
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.all(10),
+                                        backgroundColor: Colors.green[900],
+                                        foregroundColor: Colors.white,
+                                        shape: ContinuousRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                      onPressed: () async {
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (context) {
+                                            return Dialog(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 16),
+                                                    child: LoadingAnimationWidget.hexagonDots(color: Colors.green, size: 75),
+                                                  ),
+                                                  const LoadingTextWidget()
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                        await LocationService().getLiveLocation().then((LocationData locationData) async {
+                                          if (locationData.latitude != null && locationData.longitude != null) {
+                                            PlantEntity plantEntity = PlantEntity.fromMaps(
+                                              percentageController: textControllerList,
+                                              boolController: boolControllerList,
+                                              location: LatLng(locationData.latitude!, locationData.longitude!),
+                                              imageData: picBytes!,
+                                              label: predictionStr
+                                            );
+
+                                            await ExcelService()
+                                                .saveData(plantEntity)
+                                                .then(
+                                              (value) {
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
+                                              },
+                                            );
+                                          } else {
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                          }
+                                        });
+                                      },
+                                      child: const Text(
+                                        "Save",
+                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
                           },
