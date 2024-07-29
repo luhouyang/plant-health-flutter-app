@@ -181,7 +181,9 @@ class _HomePageState extends State<HomePage> {
                                           'Confirm',
                                           style: TextStyle(fontWeight: FontWeight.bold),
                                         ),
-                                        onPressed: () async {},
+                                        onPressed: () async {
+                                          Navigator.of(context).pop();
+                                        },
                                       )
                                     ]);
                               });
