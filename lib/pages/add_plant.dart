@@ -617,7 +617,8 @@ class _AddPlantPageState extends State<AddPlantPage> {
                         _formKey.currentState!.save();
 
                         List<double> input = PlantNutritionDecisionTree.formatInput(textControllerList, boolControllerList);
-                        List<double> predictionOHEA = PlantNutritionDecisionTree.predictNutrientDeficiency(input);
+                        // List<double> predictionOHEA = PlantNutritionDecisionTree.predictNutrientDeficiency(input);
+                        List<double> predictionOHEA = PlantNutritionDecisionTree.predictNutrientDeficiencyExt(input);
                         String predictionStr = PlantNutritionDecisionTree.getClass(predictionOHEA);
 
                         showDialog(
@@ -677,16 +678,13 @@ class _AddPlantPageState extends State<AddPlantPage> {
                                         await LocationService().getLiveLocation().then((LocationData locationData) async {
                                           if (locationData.latitude != null && locationData.longitude != null) {
                                             PlantEntity plantEntity = PlantEntity.fromMaps(
-                                              percentageController: textControllerList,
-                                              boolController: boolControllerList,
-                                              location: LatLng(locationData.latitude!, locationData.longitude!),
-                                              imageData: picBytes!,
-                                              label: predictionStr
-                                            );
+                                                percentageController: textControllerList,
+                                                boolController: boolControllerList,
+                                                location: LatLng(locationData.latitude!, locationData.longitude!),
+                                                imageData: picBytes!,
+                                                label: predictionStr);
 
-                                            await ExcelService()
-                                                .saveData(plantEntity)
-                                                .then(
+                                            await ExcelService().saveData(plantEntity).then(
                                               (value) {
                                                 Navigator.of(context).pop();
                                                 Navigator.of(context).pop();

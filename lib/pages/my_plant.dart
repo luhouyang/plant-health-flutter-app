@@ -91,7 +91,7 @@ class _MyPlantPageState extends State<MyPlantPage> {
                       ExpansionTile(
                         title: Text(
                           plantList[index].label,
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green[900]),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green[900]),
                         ),
                         backgroundColor: Colors.transparent,
                         collapsedBackgroundColor: Colors.transparent,
