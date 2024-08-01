@@ -69,7 +69,7 @@ class _LocationPickerState extends State<LocationPicker> {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  urlTemplate: "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
                   retinaMode: true,
                 ),
                 MarkerLayer(
