@@ -63,6 +63,8 @@ flutter:
 
     - 'assets/plant_health_data.xlsx'
 
+    - 'assets/magazine_images/plant_art1.png'
+
   fonts:
     - family: Poppins
       fonts:

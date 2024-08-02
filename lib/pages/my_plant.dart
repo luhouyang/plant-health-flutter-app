@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_health_data/entities/plant_entity.dart';
+import 'package:plant_health_data/pages/add_plant.dart';
 import 'package:plant_health_data/services/excel_sheets/excel_service.dart';
 
 class MyPlantPage extends StatefulWidget {
@@ -8,7 +9,7 @@ class MyPlantPage extends StatefulWidget {
   @override
   State<MyPlantPage> createState() => _MyPlantPageState();
 }
-
+//TODO: add tracking feature
 class _MyPlantPageState extends State<MyPlantPage> {
   final List<String> featureList = [
     "Young Leaves Chlorosis",
@@ -145,8 +146,40 @@ class _MyPlantPageState extends State<MyPlantPage> {
               );
             },
           ),
+          if (plantList.isEmpty)
+            Column(
+              children: [
+                Image.asset(
+                  'assets/magazine_images/plant_art1.png',
+                  height: 500,
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(10),
+                      backgroundColor: Colors.green[900],
+                      foregroundColor: Colors.white,
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () async {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddPlantPage(),
+                      ));
+                    },
+                    child: const Text(
+                      "Click To Add Plant",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -167,7 +200,7 @@ class _MyPlantPageState extends State<MyPlantPage> {
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 30,
           ),
         ],
       ),

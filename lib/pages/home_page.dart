@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:location/location.dart';
 import 'package:plant_health_data/entities/plant_entity.dart';
+import 'package:plant_health_data/pages/add_plant.dart';
 import 'package:plant_health_data/services/excel_sheets/excel_service.dart';
 import 'package:plant_health_data/services/location/location_service.dart';
 import 'package:plant_health_data/shared/widgets/loading_text.dart';
@@ -54,15 +55,12 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
                 const Text(
                   "All Your Plants",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36, color: Colors.green),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
@@ -86,8 +84,39 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          if (plantList.isEmpty)
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(10),
+                      backgroundColor: Colors.green[900],
+                      foregroundColor: Colors.white,
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () async {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddPlantPage(),
+                      ));
+                    },
+                    child: const Text(
+                      "Click To Add Plant",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -108,7 +137,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 10,
           ),
         ],
       ),
@@ -151,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Text(
                                           plantEntity.label,
-                                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
                                         ),
                                         Container(
                                           height: MediaQuery.of(context).size.height * 0.3,
