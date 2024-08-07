@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -360,6 +359,9 @@ class _AddPlantPageState extends State<AddPlantPage> {
                 ),
                 imagePickerWidget(),
 
+                // select group or create new group
+                //TODO: let user select group or create new group (button)
+
                 // chlorosis section
                 // young leaves %, old leaves %
                 // entire plant, leaf edges, leaf tips, spots
@@ -374,7 +376,7 @@ class _AddPlantPageState extends State<AddPlantPage> {
                 ),
                 MyPercentage(
                   hint: "Average % Young Leaves Chlorosis",
-                  imageAsset: "assets/sample_images/youngLeavesChlorosis.webp",
+                  imageAsset: "assets/sample_images/youngLeavesChlorosis.webp", 
                   controller: youngLeavesChlorosisController,
                 ),
                 MyPercentage(

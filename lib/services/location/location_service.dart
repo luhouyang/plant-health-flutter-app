@@ -69,7 +69,9 @@ class _LocationPickerState extends State<LocationPicker> {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                  tileProvider: NetworkTileProvider(headers: {'User-Agent' : 'flutter_map/7.0.2'}),
+                  urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  // userAgentPackageName: "com.planthealthdtc.plant_health_data/flutter_map/7.0.2",
                   retinaMode: true,
                 ),
                 MarkerLayer(
@@ -157,10 +159,15 @@ class LocationService {
     return FlutterMap(
       options: MapOptions(
         initialCenter: LatLng(location.latitude!, location.longitude!),
-        initialZoom: 18.0,
+        initialZoom: 16.0,
       ),
       children: [
-        TileLayer(retinaMode: true, urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png"),
+        TileLayer(
+          retinaMode: true,
+          tileProvider: NetworkTileProvider(headers: {'User-Agent' : 'flutter_map/7.0.2'}),
+                  urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  // userAgentPackageName: "com.planthealthdtc.plant_health_data/flutter_map/7.0.2",
+        ),
         // live location, orientation tracker
         LocationService().currerntLocationandOrientation(),
         if (plantList.isNotEmpty)

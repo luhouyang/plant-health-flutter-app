@@ -4,7 +4,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:plant_health_data/services/decision_tree/dart_tree.dart';
 
 import '../shared/controllers/my_controllers.dart';
-
+//TODO: add date
+// add group id (using uuid)
+// add excel to track group (each new group with new sheet)
 class PlantEntity {
   List<double> features;
   String label;

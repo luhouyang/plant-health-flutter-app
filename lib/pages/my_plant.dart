@@ -10,6 +10,7 @@ class MyPlantPage extends StatefulWidget {
   State<MyPlantPage> createState() => _MyPlantPageState();
 }
 //TODO: add tracking feature
+// add group view page
 class _MyPlantPageState extends State<MyPlantPage> {
   final List<String> featureList = [
     "Young Leaves Chlorosis",
@@ -170,8 +171,9 @@ class _MyPlantPageState extends State<MyPlantPage> {
                         builder: (context) => const AddPlantPage(),
                       ));
                     },
+                    //TODO: change to add group button
                     child: const Text(
-                      "Click To Add Plant",
+                      "Click To Add Group",
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),

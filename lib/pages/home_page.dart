@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -156,7 +155,11 @@ class _HomePageState extends State<HomePage> {
           initialZoom: 18.0,
         ),
         children: [
-          TileLayer(retinaMode: true, urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png"),
+          TileLayer(
+            retinaMode: true, tileProvider: NetworkTileProvider(headers: {'User-Agent': 'com.planthealthdtc.plant_health_data/1.1.3'}),
+            urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            // userAgentPackageName: "com.planthealthdtc.plant_health_data/flutter_map/7.0.2",
+          ),
           // live location, orientation tracker
           LocationService().currerntLocationandOrientation(),
           if (plantList.isNotEmpty)
@@ -205,9 +208,10 @@ class _HomePageState extends State<HomePage> {
                                           Navigator.of(context).pop();
                                         },
                                       ),
+                                      //TODO: direct to group page
                                       TextButton(
                                         child: const Text(
-                                          'Confirm',
+                                          'View Group',
                                           style: TextStyle(fontWeight: FontWeight.bold),
                                         ),
                                         onPressed: () async {
