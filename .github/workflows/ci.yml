@@ -1,0 +1,44 @@
+name: Plant Health CI
+
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    # This job will run on ubuntu virtual machine
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - uses: actions/checkout@v1
+
+      # Setup Java environment in order to build the Android app.
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+
+      # Setup the Flutter environment.
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable" # 'dev', 'alpha', default to: 'stable'
+          flutter-version: "3.24.2"
+
+      # Get flutter dependencies.
+      - run: flutter pub get
+
+      # Run build_runner to generate code
+      # - run: dart run build_runner build
+
+      # Build the APK
+      - run: flutter build apk --debug --split-per-abi
+
+      # Upload generated APK to the artifacts.
+      - name: Push to releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*.apk"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
