@@ -1,16 +1,17 @@
-# plant_health_data
+# Plant Health
 
-A new Flutter project.
+Identify plant **macronutrient**, **micronutrient deficiencies** using plant visual indicators as input.
 
-## Getting Started
+The materials prepared were also used in a workshop to teach Form 3 students about AI, specifically Decision Tree Classifiers.
 
-This project is a starting point for a Flutter application.
+## Play Store
 
-A few resources to get you started if this is your first Flutter project:
+Get the android app here: [Plant Health](https://play.google.com/store/apps/details?id=com.planthealthdtc.plant_health_data)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Look at the module here
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Slides: [Google Slides](https://docs.google.com/presentation/d/1vKv57PjnRV5lAVI0Ofh_7PKsZhBlc8HdLo2JRA4BPvk/edit?usp=sharing)
+
+Complete Code: [Google Colab](https://colab.research.google.com/drive/1HHmPAus4gxhYNrAa-m35uJcDFtmPRo9A?usp=sharing)
+
+Module Code: [Google Colab](https://colab.research.google.com/drive/1SrfjPV77dVDexVzHgv_W2TqenlGCLWb5?usp=sharing)
