@@ -38,8 +38,8 @@ android {
         applicationId = "com.planthealthdtc.plant_health_data"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        minSdk = 26
+        targetSdk = 34
         versionCode = 4
         versionName = "1.1.3"
     }
